@@ -24,11 +24,17 @@ module.exports = {
         const project = await Project.create({
             codigo,
             nome,
-            tasks
+            tasks: tasks.split(',').map(task => task.trim())
         })
         return res.json(project);
   },
 
-  
+   async destroy(req,res){
+
+    await Project.findByIdAndDelete(req.params.id);
+
+    return res.send('Projeto deletado com sucesso');
+     
+   }
 
 }
